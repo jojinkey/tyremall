@@ -608,7 +608,7 @@ const Home = ({ navigate }) => {
 
             <div className="relative w-full h-full flex items-center justify-center">
                
-               {/* Revenue Ticker */}
+               {/* Revennpm ru
                <div 
                  className={`absolute font-mono text-5xl md:text-7xl font-bold z-50 flex items-center gap-2 tracking-tighter bg-[var(--bg-surface)] backdrop-blur-xl px-8 py-4 rounded-2xl border border-[var(--border-subtle)] shadow-2xl transition-all duration-500 ${progress >= 0.35 && progress < 0.50 ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                  style={{ color: progress > 0.40 ? '#EF4444' : '#9CA3AF' }}
