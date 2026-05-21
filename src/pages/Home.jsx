@@ -1,5 +1,5 @@
 import SEO from "../components/SEO";
-import { LocalBusinessSchema } from '../components/LocalBusinessSchema';
+import LocalBusinessSchema from '../components/LocalBusinessSchema';
 import { Helmet } from 'react-helmet-async'
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone, MapPin, ArrowRight, Check, Star, Plus, Car, Bike, Truck, Wrench, Crosshair, Gauge, ShieldCheck, Settings2, RefreshCw, Navigation, Bus, Mail, Zap } from 'lucide-react';
