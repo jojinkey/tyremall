@@ -1,0 +1,21 @@
+/* TEAM */
+Company: Tyremall
+Site: https://tyremall.net
+Location: Dehradun, Uttarakhand, India
+
+/* SITE */
+Last update: 2026/05/27
+Language: English / Hindi
+Doctype: HTML5
+IDE: VS Code with Windsurf
+Framework: React + Vite
+Styling: Tailwind CSS
+
+/* SERVICES */
+- Premium Tyre Sales (Bridgestone, Continental, Yokohama, Goodyear, JK Tyre, Apollo, CEAT)
+- 3D Wheel Alignment
+- Computerized Wheel Balancing
+- Nitrogen Filling
+- Puncture Repair
+- Tyre Rotation
+- Expert Tyre Fitting

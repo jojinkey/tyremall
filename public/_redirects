@@ -1,0 +1,11 @@
+# Netlify Redirects for SPA and SEO
+# https://docs.netlify.com/routing/redirects/
+
+# Redirect www to non-www (canonical)
+https://www.tyremall.net/*  https://tyremall.net/:splat  301!
+
+# Handle SPA routing - serve index.html for all routes
+/*    /index.html   200
+
+# Old URL redirects (add as needed)
+# /old-page  /new-page  301
