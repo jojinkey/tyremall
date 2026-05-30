@@ -9,11 +9,13 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
 
                     {/* Logo */}
-                    <Link to="/">
+                    <Link to="/" className="group relative flex items-center justify-center">
+                        <span className="absolute -inset-5 rounded-[28px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.65),transparent_55%)] blur-2xl opacity-80 transition-opacity duration-500 group-hover:opacity-100"></span>
+                        <span className="absolute -inset-3 rounded-[24px] bg-white/10 border border-white/20 shadow-[0_25px_60px_rgba(255,255,255,0.2)] opacity-70 group-hover:opacity-90 transition-opacity duration-500"></span>
                         <img
                             src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
                             alt="Tyremall"
-                            className="h-14 w-auto opacity-90 transition-all duration-300 drop-shadow-[0_0_15px_rgba(238,63,44,0.3)] hover:opacity-100 hover:scale-105"
+                            className="relative h-14 w-auto opacity-95 transition-all duration-300 drop-shadow-[0_0_35px_rgba(255,255,255,0.55)] group-hover:opacity-100 group-hover:scale-105"
                         />
                     </Link>
 

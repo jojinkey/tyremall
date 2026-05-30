@@ -658,6 +658,19 @@ body {
 }
 `;
 
+// --- Brand Assets ---
+const mainBrandLogos = [
+  { name: 'Bridgestone', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/bridgestone.png', tagline: 'Japanese Excellence' },
+  { name: 'Continental', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Continetal.png', tagline: 'German Engineering' },
+  { name: 'Yokohama', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Yokohoma.png', tagline: 'Premium Performance' },
+  { name: 'Goodyear', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/GoodYear.png', tagline: 'American Innovation' },
+  { name: 'JK Tyre', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/JK-Tyre-logo.png', tagline: 'Total Control' },
+  { name: 'Apollo', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/apollo.png', tagline: 'Go The Distance' },
+  { name: 'CEAT', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Ceat.png', tagline: 'Born Tough' },
+];
+
+const allBrandLogos = [...mainBrandLogos];
+
 // --- Utility Hooks ---
 const useInView = (options = { threshold: 0.1 }) => {
   const ref = useRef(null);
@@ -828,21 +841,6 @@ const CardModal = ({ isOpen, cardData, onClose }) => {
     </div>
   );
 };
-
-// --- Brand Logos Array ---
-const mainBrandLogos = [
-  { name: 'Bridgestone', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/bridgestone.png', tagline: 'Japanese Excellence' },
-  { name: 'Continental', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Continetal.png', tagline: 'German Engineering' },
-  { name: 'Yokohama', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Yokohoma.png', tagline: 'Premium Performance' },
-  { name: 'Goodyear', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/GoodYear.png', tagline: 'American Innovation' },
-  { name: 'JK Tyre', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/JK-Tyre-logo.png', tagline: 'Total Control' },
-  { name: 'Apollo', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/apollo.png', tagline: 'Go The Distance' },
-  { name: 'CEAT', url: 'https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Ceat.png', tagline: 'Born Tough' },
-];
-
-const allBrandLogos = [
-  ...mainBrandLogos
-];
 
 // --- Premium Brands Modal ---
 const MoreBrandsModal = ({ isOpen, onClose }) => {
@@ -1088,10 +1086,10 @@ const Hero = () => {
   };
 
   const heroLogoStyle = {
-    height: '160px',
+    height: '190px',
     width: 'auto',
     margin: '12px auto 0 auto',
-    filter: 'drop-shadow(0px 8px 20px rgba(0,0,0,0.95)) drop-shadow(0px 0px 20px rgba(238,63,44,0.7))'
+    filter: 'drop-shadow(0px 0px 45px rgba(255, 255, 255, 0.55)) drop-shadow(0px 0px 70px rgba(253, 224, 71, 0.45)) drop-shadow(0px 20px 75px rgba(250, 204, 21, 0.65))'
   };
 
   return (
@@ -1106,15 +1104,23 @@ const Hero = () => {
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260227_042027_c4b2f2ea-1c7c-4d6e-9e3d-81a78063703f.mp4" type="video/mp4" />
       </video>
 
-      <div style={floatingHeadlineStyle} className="animate-on-scroll is-visible delay-100">
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/75 z-[1] mix-blend-multiply"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(253,224,71,0.18),transparent_62%)] opacity-80 z-[2] pointer-events-none"></div>
+
+      <div style={floatingHeadlineStyle} className="animate-on-scroll is-visible delay-100 z-[3]">
         <h1 className="text-brand-red text-xs sm:text-sm md:text-base font-bold  tracking-[0.4em] uppercase mb-5 text-shadow-heavy">
           #1 Tyre Shop in Dehradun
         </h1>
-        <img
-          src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
-          alt="Tyremall"
-          style={heroLogoStyle}
-        />
+        <div className="relative inline-flex items-center justify-center">
+          <span className="absolute -inset-12 sm:-inset-16 rounded-full bg-gradient-to-br from-white/70 via-amber-100/60 to-amber-300/40 blur-[120px] opacity-90 pointer-events-none"></span>
+          <span className="absolute -inset-20 sm:-inset-24 rounded-full border border-amber-100/40 opacity-60 blur-[160px] pointer-events-none"></span>
+          <img
+            src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
+            alt="Tyremall"
+            style={heroLogoStyle}
+            className="relative"
+          />
+        </div>
       </div>
     </div>
   );
@@ -1273,7 +1279,7 @@ const IntroDestination = () => {
   };
 
   return (
-    <div id="brands" className="py-24 bg-white border-t border-slate-200">
+    <div id="tyremall-intro" className="py-24 bg-white border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
 
         <div ref={ref} className={`text-center max-w-3xl mx-auto animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
@@ -1309,11 +1315,25 @@ const IntroDestination = () => {
             </a>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-4 text-xs sm:text-sm font-bold tracking-[0.2em] text-slate-700 uppercase">
-            <span className="flex items-center gap-2"><span className="text-brand-red text-lg">●</span> 10+ Brands</span>
-            <span className="flex items-center gap-2"><span className="text-brand-red text-lg">●</span> Free Consultation</span>
-            <span className="flex items-center gap-2"><span className="text-brand-red text-lg">●</span> 50K+ Sold</span>
-            <span className="flex items-center gap-2"><span className="text-brand-red text-lg">●</span> 4.8★ Google</span>
+          <div className="w-full mt-10">
+            <p className="text-slate-500 text-xs font-semibold tracking-[0.35em] uppercase text-center mb-6">
+              Trusted by global tyre brands
+            </p>
+            <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
+              {mainBrandLogos.map((brand) => (
+                <div
+                  key={brand.name}
+                  className="relative flex items-center justify-center px-5 sm:px-6 py-4 rounded-3xl bg-white/80 shadow-[0_18px_45px_rgba(253,224,71,0.22)] ring-1 ring-amber-200/60 backdrop-blur"
+                >
+                  <span className="sr-only">{brand.name}</span>
+                  <img
+                    src={brand.url}
+                    alt={`${brand.name} logo`}
+                    className="h-8 sm:h-10 md:h-12 object-contain drop-shadow-[0_6px_18px_rgba(253,224,71,0.45)]"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -1343,7 +1363,7 @@ const BrandsShowcase = ({ onOpenModal }) => {
 
   return (
     <>
-      <div id="brands" className="py-24 bg-slate-50 border-y border-slate-200">
+      <div id="brands" className="py-24 bg-slate-50 border-y border-slate-200 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle subtitle="Authorized Dealer" title="Premium Tyre Brands" />
           <p className="text-slate-600 text-sm md:text-base text-center max-w-3xl mx-auto mb-16 -mt-8 animate-on-scroll is-visible">
@@ -1357,23 +1377,21 @@ const BrandsShowcase = ({ onOpenModal }) => {
               <div
                 key={brand.name}
                 onClick={() => handleCardClick(brand)}
-                className={`pc-brand p-6 md:p-8 flex flex-col items-center justify-center group card-pop-in card-pop-in-delay-${idx + 1} cursor-pointer hover:scale-105 hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(238,63,44,0.3)] rounded-[28px] bg-white border border-slate-100`}
+                className={`relative overflow-hidden rounded-[28px] p-6 md:p-8 flex flex-col items-center justify-between group card-pop-in card-pop-in-delay-${idx + 1} cursor-pointer bg-gradient-to-br from-slate-950 via-slate-900 to-slate-850 border border-white/15 shadow-[0_22px_55px_rgba(15,23,42,0.45)] transition-all duration-500`}
               >
-                <div className="h-24 md:h-28 w-full flex items-center justify-center mb-5 z-10 relative">
+                <span className="sr-only">{brand.name}</span>
+                <div className="absolute inset-px rounded-[26px] bg-gradient-to-br from-white/25 via-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative h-24 md:h-28 w-full flex items-center justify-center">
+                  <div className="absolute w-[160%] h-[160%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.7),transparent_68%)] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <img
                     src={brand.url}
-                    alt={`${brand.name} Tyres Dehradun`}
-                    className="w-[80%] h-[80%] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_15px_40px_rgba(238,63,44,0.3)] group-hover:scale-110 transition-all duration-500"
+                    alt={`${brand.name} logo`}
+                    className="relative z-10 h-full w-auto object-contain drop-shadow-[0_0_34px_rgba(255,255,255,0.7)] group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-black text-sm md:text-base uppercase tracking-wide text-center z-10 relative text-slate-800 group-hover:text-brand-red transition-colors duration-300 mb-1">
-                  {brand.name}
-                </h3>
-                <p className="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-wider text-center">
+                <p className="relative z-10 mt-6 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-slate-200 text-center group-hover:text-white">
                   {brand.tagline}
                 </p>
-                {/* Hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/10 via-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px] pointer-events-none"></div>
               </div>
             ))}
           </div>
@@ -1384,23 +1402,21 @@ const BrandsShowcase = ({ onOpenModal }) => {
               <div
                 key={brand.name}
                 onClick={() => handleCardClick(brand)}
-                className={`pc-brand p-6 md:p-8 flex flex-col items-center justify-center group card-pop-in card-pop-in-delay-${idx + 1} cursor-pointer hover:scale-105 hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_25px_60px_rgba(238,63,44,0.3)] rounded-[28px] bg-white border border-slate-100`}
+                className={`relative overflow-hidden rounded-[28px] p-6 md:p-8 flex flex-col items-center justify-between group card-pop-in card-pop-in-delay-${idx + 1} cursor-pointer bg-gradient-to-br from-slate-950 via-slate-900 to-slate-850 border border-white/15 shadow-[0_22px_55px_rgba(15,23,42,0.45)] transition-all duration-500`}
               >
-                <div className="h-24 md:h-28 w-full flex items-center justify-center mb-5 z-10 relative">
+                <span className="sr-only">{brand.name}</span>
+                <div className="absolute inset-px rounded-[26px] bg-gradient-to-br from-white/25 via-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative h-24 md:h-28 w-full flex items-center justify-center">
+                  <div className="absolute w-[160%] h-[160%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.7),transparent_68%)] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <img
                     src={brand.url}
-                    alt={`${brand.name} Tyres Dehradun`}
-                    className="w-[80%] h-[80%] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.15)] group-hover:drop-shadow-[0_15px_40px_rgba(238,63,44,0.3)] group-hover:scale-110 transition-all duration-500"
+                    alt={`${brand.name} logo`}
+                    className="relative z-10 h-full w-auto object-contain drop-shadow-[0_0_34px_rgba(255,255,255,0.7)] group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-black text-sm md:text-base uppercase tracking-wide text-center z-10 relative text-slate-800 group-hover:text-brand-red transition-colors duration-300 mb-1">
-                  {brand.name}
-                </h3>
-                <p className="text-slate-400 text-[10px] md:text-xs font-bold uppercase tracking-wider text-center">
+                <p className="relative z-10 mt-6 text-[10px] md:text-xs font-semibold uppercase tracking-[0.35em] text-slate-200 text-center group-hover:text-white">
                   {brand.tagline}
                 </p>
-                {/* Hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/10 via-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[28px] pointer-events-none"></div>
               </div>
             ))}
           </div>

@@ -33,15 +33,25 @@ export default function Header() {
             <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-12">
 
-                    <Link to="/" className="flex-shrink-0">
-                        <img
-                            src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
-                            alt="Tyremall Logo"
-                            className={`transition-all duration-500 w-auto ${scrolled
-                                    ? "h-10 drop-shadow-md"
-                                    : "h-12 md:h-14 drop-shadow-[0_8px_20px_rgba(238,63,44,0.2)]"
+                    <Link to="/" className="flex-shrink-0 group">
+                        <div
+                            className={`relative flex items-center justify-center rounded-[28px] px-4 py-2 transition-all duration-500 ${scrolled ? "scale-95" : "scale-105"}`}
+                        >
+                            <div
+                                className={`absolute inset-0 rounded-[28px] bg-gradient-to-br from-amber-100/80 via-white/60 to-amber-300/40 blur-3xl ${scrolled ? "opacity-60" : "opacity-90"} transition-opacity duration-500 pointer-events-none`}
+                            ></div>
+                            <div
+                                className={`absolute inset-[3px] rounded-[24px] bg-gradient-to-r from-white/70 via-amber-50/60 to-amber-200/40 ${scrolled ? "shadow-[0_12px_30px_rgba(253,224,71,0.25)]" : "shadow-[0_22px_60px_rgba(253,224,71,0.35)]"} pointer-events-none transition-all duration-500`}
+                            ></div>
+                            <img
+                                src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
+                                alt="Tyremall Logo"
+                                className={`relative z-10 w-auto transition-all duration-500 ${scrolled
+                                    ? "h-12 md:h-14 drop-shadow-[0_0_28px_rgba(253,224,71,0.65)]"
+                                    : "h-16 md:h-20 drop-shadow-[0_0_48px_rgba(253,224,71,0.75)]"
                                 }`}
-                        />
+                            />
+                        </div>
                     </Link>
 
                     {/* Desktop Nav */}

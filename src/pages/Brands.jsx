@@ -3,12 +3,50 @@ import {
   ShieldCheck,
   Star,
   ArrowRight,
-  CircleDot,
   Award,
   CheckCircle2,
 } from "lucide-react";
 
 export default function Brands() {
+  const brandCards = [
+    {
+      name: "Bridgestone",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/bridgestone.png",
+      tagline: "Japanese Excellence",
+      description: "Premium Japanese tyre technology built for performance and safety.",
+    },
+    {
+      name: "Continental",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Continetal.png",
+      tagline: "German Engineering",
+      description: "German-engineered tyres delivering exceptional grip and comfort.",
+    },
+    {
+      name: "Yokohama",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Yokohoma.png",
+      tagline: "Premium Performance",
+      description: "High-performance tyres designed for sporty handling and durability.",
+    },
+    {
+      name: "Goodyear",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/GoodYear.png",
+      tagline: "American Innovation",
+      description: "Trusted global tyre brand known for reliability and innovation.",
+    },
+    {
+      name: "Apollo",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/apollo.png",
+      tagline: "Go The Distance",
+      description: "Advanced tyre solutions for Indian roads and driving conditions.",
+    },
+    {
+      name: "CEAT",
+      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Ceat.png",
+      tagline: "Born Tough",
+      description: "Durable and affordable tyres for daily and commercial use.",
+    },
+  ];
+
   return (
     <>
       <SEO
@@ -74,58 +112,33 @@ export default function Brands() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-              {[
-                {
-                  name: "Bridgestone",
-                  desc: "Premium Japanese tyre technology built for performance and safety.",
-                },
-                {
-                  name: "Continental",
-                  desc: "German-engineered tyres delivering exceptional grip and comfort.",
-                },
-                {
-                  name: "Yokohama",
-                  desc: "High-performance tyres designed for sporty handling and durability.",
-                },
-                {
-                  name: "Goodyear",
-                  desc: "Trusted global tyre brand known for reliability and innovation.",
-                },
-                {
-                  name: "Apollo",
-                  desc: "Advanced tyre solutions for Indian roads and driving conditions.",
-                },
-                {
-                  name: "CEAT",
-                  desc: "Durable and affordable tyres for daily and commercial use.",
-                },
-              ].map((brand) => (
+              {brandCards.map((brand) => (
                 <div
                   key={brand.name}
-                  className="group bg-white border border-slate-200 rounded-[32px] p-10 hover:-translate-y-2 hover:border-red-500/30 transition-all duration-500 shadow-sm hover:shadow-2xl"
+                  className="group relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border border-amber-200/25 rounded-[32px] p-10 hover:-translate-y-2 transition-all duration-500 shadow-[0_25px_70px_rgba(15,23,42,0.45)]"
                 >
 
-                  <div className="flex items-center justify-between mb-8">
+                  <span className="sr-only">{brand.name}</span>
 
-                    <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center group-hover:bg-red-500 transition-all">
-
-                      <CircleDot className="w-8 h-8 text-red-500 group-hover:text-white" />
-
-                    </div>
-
-                    <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
-
+                  <div className="relative flex items-center justify-center mb-10">
+                    <div className="absolute w-44 h-44 bg-[radial-gradient(circle_at_center,rgba(253,224,71,0.35),transparent_70%)] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-x-6 -top-1 h-36 rounded-[28px] bg-white/5 backdrop-blur-sm border border-white/10"></div>
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} logo`}
+                      className="relative z-10 h-14 sm:h-16 object-contain drop-shadow-[0_0_32px_rgba(253,224,71,0.55)] group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
 
-                  <h3 className="text-3xl font-black uppercase mb-5">
-                    {brand.name}
-                  </h3>
-
-                  <p className="text-slate-600 leading-relaxed mb-8">
-                    {brand.desc}
+                  <p className="text-amber-100/80 uppercase tracking-[0.3em] text-xs font-semibold mb-4 text-center">
+                    {brand.tagline}
                   </p>
 
-                  <button className="inline-flex items-center gap-2 text-red-500 font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all">
+                  <p className="text-slate-300 leading-relaxed mb-8 text-center">
+                    {brand.description}
+                  </p>
+
+                  <button className="inline-flex items-center gap-2 text-amber-200 font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all">
 
                     Explore Brand
                     <ArrowRight className="w-4 h-4" />
