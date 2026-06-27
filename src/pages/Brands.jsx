@@ -1,355 +1,486 @@
 import SEO from "../components/SEO";
-import {
-  ShieldCheck,
-  Star,
-  ArrowRight,
-  Award,
-  CheckCircle2,
-} from "lucide-react";
+import { Phone, ArrowRight, CheckCircle2, Star } from "lucide-react";
+
+const BRANDS_CSS = `
+  @keyframes brand-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .brand-marquee-track {
+    animation: brand-marquee 24s linear infinite;
+    will-change: transform;
+  }
+  .brand-marquee-track:hover {
+    animation-play-state: paused;
+  }
+`;
+
+const BRANDS = [
+  {
+    name: "Bridgestone",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/bridgestone.png",
+    tagline: "Japanese Excellence",
+    country: "Japan · Est. 1931",
+    description:
+      "The world's largest tyre manufacturer by revenue. Bridgestone's cutting-edge Japanese engineering combined with decades of motorsport heritage delivers unmatched grip, durability, and precision on every road and in every condition.",
+    highlight: "F1 Official Tyre Supplier for 12+ seasons",
+  },
+  {
+    name: "Continental",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Continetal.png",
+    tagline: "German Precision",
+    country: "Germany · Est. 1871",
+    description:
+      "One of the oldest and most prestigious tyre manufacturers in the world. Continental's German precision engineering produces tyres with exceptional wet-road grip, long tread life, superior fuel efficiency and a refined, confident ride.",
+    highlight: "OEM supplier for BMW, Mercedes-Benz & Audi",
+  },
+  {
+    name: "Yokohama",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Yokohoma.png",
+    tagline: "Drive Your Ambition",
+    country: "Japan · Est. 1917",
+    description:
+      "Yokohama tyres are engineered for drivers who demand precision and control. Their advanced compound technology ensures superior handling, shorter braking distances, and a smooth, confident ride on any terrain.",
+    highlight: "Official partner of multiple global racing series",
+  },
+  {
+    name: "Goodyear",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/GoodYear.png",
+    tagline: "More Driven",
+    country: "USA · Est. 1898",
+    description:
+      "For over 125 years, Goodyear has been synonymous with reliability and American innovation. From family sedans to NASCAR circuits, Goodyear delivers consistent performance you can trust mile after mile.",
+    highlight: "125+ years of trusted tyre innovation",
+  },
+  {
+    name: "JK Tyre",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/JK-Tyre-logo.png",
+    tagline: "Total Control",
+    country: "India · Est. 1974",
+    description:
+      "India's leading tyre brand and the first Indian company to manufacture radial tyres. JK Tyre offers a comprehensive range built specifically for Indian roads — from crowded city streets to winding mountain highways.",
+    highlight: "India's #1 commercial tyre brand for 15+ years",
+  },
+  {
+    name: "Apollo",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/apollo.png",
+    tagline: "Go The Distance",
+    country: "India · Est. 1972",
+    description:
+      "Apollo Tyres has grown from a single plant in India to a truly global tyre brand. Engineered specifically for Indian road conditions, Apollo delivers outstanding performance, durability and value for everyday drivers.",
+    highlight: "Engineered for India's diverse road conditions",
+  },
+  {
+    name: "CEAT",
+    logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Ceat.png",
+    tagline: "Born Tough",
+    country: "India · Est. 1958",
+    description:
+      "CEAT is one of India's most trusted tyre brands — tough, reliable and built to handle India's diverse roads with ease. From daily commuters to heavy-duty commercial vehicles, CEAT tyres are engineered for resilience.",
+    highlight: "50+ million tyres manufactured every year",
+  },
+];
 
 export default function Brands() {
-  const brandCards = [
-    {
-      name: "Bridgestone",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/bridgestone.png",
-      tagline: "Japanese Excellence",
-      description: "Premium Japanese tyre technology built for performance and safety.",
-    },
-    {
-      name: "Continental",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Continetal.png",
-      tagline: "German Engineering",
-      description: "German-engineered tyres delivering exceptional grip and comfort.",
-    },
-    {
-      name: "Yokohama",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Yokohoma.png",
-      tagline: "Premium Performance",
-      description: "High-performance tyres designed for sporty handling and durability.",
-    },
-    {
-      name: "Goodyear",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/GoodYear.png",
-      tagline: "American Innovation",
-      description: "Trusted global tyre brand known for reliability and innovation.",
-    },
-    {
-      name: "Apollo",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/apollo.png",
-      tagline: "Go The Distance",
-      description: "Advanced tyre solutions for Indian roads and driving conditions.",
-    },
-    {
-      name: "CEAT",
-      logo: "https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Ceat.png",
-      tagline: "Born Tough",
-      description: "Durable and affordable tyres for daily and commercial use.",
-    },
-  ];
-
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: BRANDS_CSS }} />
       <SEO
         title="Premium Tyre Brands in Dehradun | Tyremall"
-        description="Explore Bridgestone, Continental, Yokohama, Goodyear, Apollo & CEAT tyres available at Tyremall Dehradun."
-        keywords="Bridgestone tyres Dehradun, Continental tyres, Yokohama tyres, CEAT tyres, Apollo tyres"
-        image="https://yourdomain.com/brands-og.jpg"
-        url="https://yourdomain.com/brands"
+        description="Explore Bridgestone, Continental, Yokohama, Goodyear, JK Tyre, Apollo & CEAT tyres available at Tyremall Dehradun."
+        keywords="Bridgestone tyres Dehradun, Continental tyres, Yokohama tyres, CEAT tyres, Apollo tyres, JK Tyre Dehradun"
+        image="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/TyreMall%20logo.png"
+        url="https://tyremall.net/brands"
       />
-      <main className="bg-[#f8fafc] text-slate-900 overflow-hidden">
+      <main>
 
-        {/* HERO */}
-        <section className="relative pt-40 pb-28 overflow-hidden bg-gradient-to-b from-black via-[#111827] to-[#1e293b]">
+        {/* ── HERO ─────────────────────────────────────────────────────────── */}
+        <section className="relative min-h-screen flex items-center pt-32 pb-24 bg-gradient-to-br from-black via-slate-950 to-[#0d1117] overflow-hidden">
 
-          <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-red-500/20 blur-[120px] rounded-full" />
-
-          <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-red-500/20 blur-[120px] rounded-full" />
-
-          {/* SVG Ring */}
-          <div className="absolute inset-0 opacity-[0.06]">
-            <svg
-              className="absolute top-20 left-10 w-[400px] h-[400px] animate-spin"
-              style={{ animationDuration: "30s" }}
-              viewBox="0 0 200 200"
-            >
-              <circle
-                cx="100"
-                cy="100"
-                r="80"
-                stroke="white"
-                strokeWidth="8"
-                fill="none"
-                strokeDasharray="10 10"
-              />
-            </svg>
+          {/* Scattered brand watermarks */}
+          <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+            <img src={BRANDS[0].logo} alt="" aria-hidden="true"
+              className="absolute top-16 right-[6%] w-64 opacity-[0.06] rotate-12 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[1].logo} alt="" aria-hidden="true"
+              className="absolute bottom-20 left-[4%] w-56 opacity-[0.06] -rotate-8 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[2].logo} alt="" aria-hidden="true"
+              className="absolute top-1/3 right-1/4 w-48 opacity-[0.05] rotate-6 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[3].logo} alt="" aria-hidden="true"
+              className="absolute top-24 left-1/4 w-56 opacity-[0.06] -rotate-12 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[4].logo} alt="" aria-hidden="true"
+              className="absolute bottom-1/3 right-[8%] w-44 opacity-[0.05] rotate-3 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[5].logo} alt="" aria-hidden="true"
+              className="absolute top-1/2 left-[5%] w-40 opacity-[0.05] -rotate-6 mix-blend-luminosity"
+              loading="eager" decoding="async" />
+            <img src={BRANDS[6].logo} alt="" aria-hidden="true"
+              className="absolute bottom-16 right-1/3 w-52 opacity-[0.06] rotate-9 mix-blend-luminosity"
+              loading="eager" decoding="async" />
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
+          {/* Red top halo */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-red-500/[0.12] blur-[130px] rounded-full pointer-events-none" />
 
-            <p className="text-red-500 uppercase tracking-[0.3em] text-xs font-bold mb-6">
-              Premium Tyre Brands
+          <div className="relative z-10 max-w-7xl mx-auto px-6 text-center w-full">
+
+            <p className="text-red-500 text-[10px] font-black tracking-[0.45em] uppercase mb-7">
+              Authorized Multi-Brand Dealer · Dehradun
             </p>
 
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.95] uppercase tracking-tight mb-8">
-              Genuine Global
-              <br />
-              Tyre Brands.
+            <h1
+              className="font-black text-white uppercase tracking-tighter leading-[0.88] mb-8"
+              style={{ fontSize: "clamp(3rem, 10vw, 7.5rem)" }}
+            >
+              7 World-Class<br />Tyre Brands.
             </h1>
 
-            <p className="text-slate-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-              Tyremall Dehradun offers premium tyres from trusted global brands
-              including Bridgestone, Continental, Yokohama, Goodyear,
-              Apollo, CEAT and more.
+            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+              Genuine tyres from the world's most trusted manufacturers —
+              all under one roof in Dehradun.
             </p>
 
-          </div>
-        </section>
-
-        {/* BRANDS GRID */}
-        <section className="py-28 bg-white">
-
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-              {brandCards.map((brand) => (
+            {/* Brand logo pills */}
+            <div className="flex flex-wrap justify-center gap-3 mb-14">
+              {BRANDS.map((b) => (
                 <div
-                  key={brand.name}
-                  className="group relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border border-amber-200/25 rounded-[32px] p-10 hover:-translate-y-2 transition-all duration-500 shadow-[0_25px_70px_rgba(15,23,42,0.45)]"
+                  key={b.name}
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-full backdrop-blur-sm transition-all duration-300 cursor-default"
+                  style={{
+                    background: "rgba(255,255,255,0.07)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                  }}
                 >
-
-                  <span className="sr-only">{brand.name}</span>
-
-                  <div className="relative flex items-center justify-center mb-10">
-                    <div className="absolute w-44 h-44 bg-[radial-gradient(circle_at_center,rgba(253,224,71,0.35),transparent_70%)] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute inset-x-6 -top-1 h-36 rounded-[28px] bg-white/5 backdrop-blur-sm border border-white/10"></div>
+                  <div className="w-9 h-6 bg-white rounded-md flex items-center justify-center p-1 flex-shrink-0">
                     <img
-                      src={brand.logo}
-                      alt={`${brand.name} logo`}
-                      className="relative z-10 h-14 sm:h-16 object-contain drop-shadow-[0_0_32px_rgba(253,224,71,0.55)] group-hover:scale-105 transition-transform duration-500"
+                      src={b.logo}
+                      alt={b.name}
+                      className="max-h-full max-w-full object-contain"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
-
-                  <p className="text-amber-100/80 uppercase tracking-[0.3em] text-xs font-semibold mb-4 text-center">
-                    {brand.tagline}
-                  </p>
-
-                  <p className="text-slate-300 leading-relaxed mb-8 text-center">
-                    {brand.description}
-                  </p>
-
-                  <button className="inline-flex items-center gap-2 text-amber-200 font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all">
-
-                    Explore Brand
-                    <ArrowRight className="w-4 h-4" />
-
-                  </button>
-
+                  <span className="text-white text-[10px] font-black uppercase tracking-[0.2em]">
+                    {b.name}
+                  </span>
                 </div>
               ))}
-
             </div>
 
-          </div>
-
-        </section>
-
-        {/* WHY GENUINE */}
-        <section className="py-28 bg-slate-50">
-
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-20 items-center">
-
-            {/* LEFT */}
-            <div>
-
-              <p className="text-red-500 uppercase tracking-[0.3em] text-xs font-bold mb-5">
-                Why Genuine Tyres
-              </p>
-
-              <h2 className="text-4xl md:text-5xl font-black uppercase leading-tight tracking-tight mb-8">
-                Trusted Brands.
-                <br />
-                Genuine Quality.
-              </h2>
-
-              <p className="text-slate-600 text-lg leading-relaxed mb-10">
-                Tyremall only stocks 100% genuine tyres from authorized
-                manufacturers to ensure safety, durability and long-term performance.
-              </p>
-
-              <div className="space-y-5">
-
-                {[
-                  "Manufacturer Warranty",
-                  "100% Genuine Products",
-                  "Premium Global Brands",
-                  "Expert Installation Support",
-                  "Competitive Pricing",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-4"
-                  >
-
-                    <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    </div>
-
-                    <p className="font-semibold text-lg">
-                      {item}
-                    </p>
-
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-
-            {/* RIGHT */}
-            <div className="relative">
-
-              <div className="absolute inset-0 bg-red-500/10 blur-[100px] rounded-full" />
-
-              <div className="relative bg-gradient-to-br from-[#111827] to-black rounded-[40px] p-10 overflow-hidden">
-
-                <div className="grid grid-cols-2 gap-6">
-
-                  {[
-                    ["10+", "Global Brands"],
-                    ["50K+", "Tyres Sold"],
-                    ["100%", "Genuine Tyres"],
-                    ["4.8★", "Customer Rating"],
-                  ].map(([number, label]) => (
-                    <div
-                      key={label}
-                      className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md"
-                    >
-
-                      <h3 className="text-4xl font-black text-red-500 mb-3">
-                        {number}
-                      </h3>
-
-                      <p className="text-slate-300 uppercase tracking-wide text-sm">
-                        {label}
-                      </p>
-
-                    </div>
-                  ))}
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* AUTHORIZED DEALER */}
-        <section className="py-28 bg-white">
-
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-
-            <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-8">
-
-              <Award className="w-12 h-12 text-red-500" />
-
-            </div>
-
-            <p className="text-red-500 uppercase tracking-[0.3em] text-xs font-bold mb-5">
-              Authorized Dealer
-            </p>
-
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight mb-8">
-              Buy Genuine
-              <br />
-              Premium Tyres.
-            </h2>
-
-            <p className="text-slate-600 text-lg leading-relaxed max-w-3xl mx-auto mb-12">
-              Visit Tyremall Dehradun for premium tyre brands,
-              professional fitting and trusted automotive expertise.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-5">
-
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:7088977333"
-                className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all"
+                className="inline-flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-0.5"
+                style={{ boxShadow: "0 12px 40px rgba(238,63,44,0.4)" }}
               >
-                Call Now
+                <Phone className="w-4 h-4" /> Call 70889 77333
               </a>
-
               <a
-                href="/contact"
-                className="inline-flex items-center gap-2 border border-slate-300 hover:border-red-500 px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all"
+                href="https://wa.me/917088110172"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                }}
               >
-                Contact Us
-                <ArrowRight size={18} />
+                WhatsApp Us <ArrowRight className="w-4 h-4" />
               </a>
-
             </div>
 
           </div>
-
         </section>
 
-        {/* TRUST SECTION */}
-        <section className="py-24 bg-black text-white">
+        {/* ── SCROLLING LOGO MARQUEE ───────────────────────────────────────── */}
+        <div className="py-5 bg-white border-y border-slate-100 overflow-hidden">
+          <div
+            className="brand-marquee-track"
+            style={{ display: "flex", width: "max-content", gap: "48px", alignItems: "center" }}
+          >
+            {[...BRANDS, ...BRANDS, ...BRANDS, ...BRANDS].map((b, i) => (
+              <div key={i} className="flex items-center gap-4 flex-shrink-0">
+                <img
+                  src={b.logo}
+                  alt={b.name}
+                  className="h-8 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="text-slate-200 font-bold text-lg select-none">·</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* ── BRAND SPOTLIGHT SECTIONS ─────────────────────────────────────── */}
+        {BRANDS.map((brand, i) => {
+          const isDark = i % 2 !== 0;
+          return (
+            <section
+              key={brand.name}
+              className={`relative py-24 md:py-36 overflow-hidden ${isDark ? "bg-slate-950" : "bg-white"}`}
+            >
+              {/* Full-section background logo watermark */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                <img
+                  src={brand.logo}
+                  alt=""
+                  aria-hidden="true"
+                  className="object-contain"
+                  style={{
+                    width: "min(80vw, 680px)",
+                    opacity: isDark ? 0.025 : 0.04,
+                  }}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+              {/* Ambient red glow on dark sections */}
+              {isDark && (
+                <div
+                  className="absolute pointer-events-none"
+                  style={{
+                    top: "50%",
+                    [i % 4 === 1 ? "right" : "left"]: "-100px",
+                    transform: "translateY(-50%)",
+                    width: "450px",
+                    height: "450px",
+                    background: "radial-gradient(circle, rgba(238,63,44,0.1), transparent 70%)",
+                  }}
+                />
+              )}
 
-              {[
-                {
-                  icon: ShieldCheck,
-                  title: "100% Genuine",
-                  desc: "All tyres sourced directly from authorized manufacturers.",
-                },
-                {
-                  icon: Award,
-                  title: "Authorized Dealer",
-                  desc: "Trusted partner for leading global tyre brands.",
-                },
-                {
-                  icon: Star,
-                  title: "Customer Satisfaction",
-                  desc: "Thousands of happy customers across Dehradun.",
-                },
-              ].map((item) => {
-                const Icon = item.icon;
+              <div className="relative z-10 max-w-7xl mx-auto px-6">
+                <div className={`grid lg:grid-cols-2 gap-14 md:gap-20 items-center`}>
 
-                return (
-                  <div
-                    key={item.title}
-                    className="border border-white/10 rounded-[32px] p-10 bg-white/5 backdrop-blur-md"
-                  >
-
-                    <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6">
-
-                      <Icon className="w-8 h-8 text-red-500" />
-
+                  {/* ── Logo side */}
+                  <div className={`flex justify-center items-center ${i % 2 !== 0 ? "lg:order-2" : ""}`}>
+                    <div className="relative group">
+                      {/* Hover glow ring */}
+                      <div
+                        className="absolute -inset-6 rounded-[44px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"
+                        style={{ background: "rgba(238,63,44,0.18)" }}
+                      />
+                      {/* White logo container */}
+                      <div
+                        className="relative bg-white rounded-[36px] p-14 md:p-20 transition-shadow duration-500"
+                        style={{
+                          boxShadow:
+                            "0 30px 80px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05)",
+                        }}
+                      >
+                        <img
+                          src={brand.logo}
+                          alt={`${brand.name} logo`}
+                          className="mx-auto object-contain group-hover:scale-[1.04] transition-transform duration-500"
+                          style={{ width: "min(240px, 60vw)", height: "140px" }}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
                     </div>
+                  </div>
 
-                    <h3 className="text-2xl font-black uppercase mb-4">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-slate-300 leading-relaxed">
-                      {item.desc}
+                  {/* ── Text side */}
+                  <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
+                    <p className="text-red-500 text-[10px] font-black tracking-[0.45em] uppercase mb-4">
+                      {brand.country}
                     </p>
 
+                    <h2
+                      className={`font-black uppercase tracking-tighter leading-[0.9] mb-4 ${isDark ? "text-white" : "text-slate-900"}`}
+                      style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
+                    >
+                      {brand.name}
+                    </h2>
+
+                    <p className={`text-sm font-black uppercase tracking-[0.2em] mb-6 ${isDark ? "text-red-400" : "text-red-500"}`}>
+                      "{brand.tagline}"
+                    </p>
+
+                    <p className={`text-base md:text-lg leading-relaxed mb-8 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                      {brand.description}
+                    </p>
+
+                    {/* Highlight badge */}
+                    <div
+                      className={`inline-flex items-center gap-3 px-5 py-3 rounded-full mb-10 ${isDark ? "" : "bg-slate-50 border border-slate-200"}`}
+                      style={
+                        isDark
+                          ? { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }
+                          : {}
+                      }
+                    >
+                      <Star className="w-4 h-4 text-amber-400 fill-amber-400 flex-shrink-0" />
+                      <span className={`text-sm font-bold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                        {brand.highlight}
+                      </span>
+                    </div>
+
+                    {/* Feature chips */}
+                    <div className="flex flex-wrap gap-3 mb-10">
+                      {["Manufacturer Warranty", "100% Genuine", "Expert Fitting"].map((f) => (
+                        <div
+                          key={f}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide ${isDark ? "text-slate-400" : "bg-slate-50 border border-slate-200 text-slate-500"}`}
+                          style={
+                            isDark
+                              ? { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }
+                              : {}
+                          }
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+                          {f}
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-4 flex-wrap">
+                      <a
+                        href="tel:7088977333"
+                        className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-7 py-3.5 rounded-xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-0.5"
+                        style={{ boxShadow: "0 8px 28px rgba(238,63,44,0.35)" }}
+                      >
+                        <Phone className="w-4 h-4" /> Get Price
+                      </a>
+                      <a
+                        href="https://wa.me/917088110172"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-0.5 ${isDark ? "text-white hover:bg-white/[0.08]" : "text-slate-700 hover:border-red-500 hover:text-red-500 border border-slate-200"}`}
+                        style={isDark ? { border: "1px solid rgba(255,255,255,0.18)" } : {}}
+                      >
+                        WhatsApp
+                      </a>
+                    </div>
                   </div>
-                );
-              })}
 
-            </div>
+                </div>
+              </div>
+            </section>
+          );
+        })}
 
+        {/* ── TRUST STATS ──────────────────────────────────────────────────── */}
+        <section className="py-28 bg-white relative overflow-hidden">
+          {/* Brand logos tiled as faint background texture */}
+          <div className="absolute inset-0 pointer-events-none select-none grid grid-cols-4 items-center gap-10 p-16 opacity-[0.032]">
+            {[...BRANDS, ...BRANDS].map((b, i) => (
+              <img key={i} src={b.logo} alt="" aria-hidden="true"
+                className="w-full h-auto object-contain" loading="lazy" decoding="async" />
+            ))}
           </div>
 
+          <div className="relative z-10 max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <p className="text-red-500 text-[10px] font-black tracking-[0.45em] uppercase mb-4">Why Tyremall</p>
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-slate-900">
+                One Store. All Brands.
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                { n: "7+", l: "Premium Brands" },
+                { n: "50K+", l: "Tyres Sold" },
+                { n: "100%", l: "Genuine Products" },
+                { n: "4.8★", l: "Google Rating" },
+              ].map(({ n, l }) => (
+                <div
+                  key={l}
+                  className="text-center p-8 md:p-10 rounded-3xl bg-slate-50 border border-slate-100 hover:border-red-200 transition-all duration-300"
+                  style={{ boxShadow: "0 0 0 0 transparent" }}
+                >
+                  <p className="text-4xl md:text-5xl font-black text-red-500 mb-2">{n}</p>
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-wider">{l}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FINAL CTA ────────────────────────────────────────────────────── */}
+        <section className="py-28 bg-slate-950 relative overflow-hidden">
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+            style={{
+              width: "700px",
+              height: "350px",
+              background: "radial-gradient(ellipse, rgba(238,63,44,0.13), transparent 70%)",
+              filter: "blur(60px)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 right-0 rounded-full pointer-events-none"
+            style={{
+              width: "400px",
+              height: "300px",
+              background: "radial-gradient(ellipse, rgba(238,63,44,0.08), transparent 70%)",
+              filter: "blur(80px)",
+            }}
+          />
+
+          <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+            <p className="text-red-500 text-[10px] font-black tracking-[0.45em] uppercase mb-6">
+              Authorized Dealer
+            </p>
+            <h2
+              className="font-black text-white uppercase tracking-tighter leading-[0.92] mb-6"
+              style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
+            >
+              Buy Genuine.<br />Buy from Us.
+            </h2>
+            <p className="text-slate-400 text-lg mb-14 max-w-xl mx-auto leading-relaxed">
+              Visit Tyremall on GMS Road, Dehradun for expert advice, the best
+              prices and 100% genuine tyres — all with manufacturer warranty.
+            </p>
+
+            {/* All brand logos prominently displayed */}
+            <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 max-w-4xl mx-auto mb-14">
+              {BRANDS.map((b) => (
+                <div
+                  key={b.name}
+                  className="bg-white rounded-2xl p-3 md:p-4 flex items-center justify-center aspect-square transition-all duration-300 group"
+                  style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.08)" }}
+                >
+                  <img
+                    src={b.logo}
+                    alt={b.name}
+                    className="max-h-10 md:max-h-12 max-w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="tel:7088977333"
+                className="inline-flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-1"
+                style={{ boxShadow: "0 15px 40px rgba(238,63,44,0.4)" }}
+              >
+                <Phone className="w-5 h-5" /> Call 70889 77333
+              </a>
+              <a
+                href="https://wa.me/917088110172"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.15em] text-sm transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                }}
+              >
+                WhatsApp Us <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
         </section>
 
       </main>

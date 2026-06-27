@@ -626,10 +626,57 @@ body {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+@keyframes marquee-roll-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
 .marquee-track {
-  animation: marquee-roll 36s linear infinite;
+  animation: marquee-roll 22s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
+.marquee-track-reverse {
+  animation: marquee-roll-reverse 28s linear infinite;
+}
+.marquee-track-reverse:hover { animation-play-state: paused; }
+
+.pc-review-dark {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.09);
+  padding: 32px 28px 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.pc-review-dark::after {
+  content: '“';
+  position: absolute;
+  top: -10px; right: 20px;
+  font-size: 140px; line-height: 1;
+  background: linear-gradient(180deg, rgba(238,63,44,0.3) 0%, rgba(238,63,44,0.03) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+.pc-review-dark:hover {
+  border-color: rgba(238,63,44,0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(238,63,44,0.25), 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+  background: linear-gradient(145deg, rgba(238,63,44,0.1) 0%, rgba(255,255,255,0.04) 100%);
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-22px) scale(1.015); }
+}
+.float-gentle {
+  animation: float-gentle 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 30px 60px rgba(238,63,44,0.18)) drop-shadow(0 10px 25px rgba(15,23,42,0.12));
+}
 
 /* Dynamic Red Scroll Overlay */
 .dynamic-scroll-overlay {
@@ -1080,15 +1127,13 @@ const Hero = () => {
 
   return (
     <div id="home" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      <img
+        src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/main_hero.gif"
+        alt="Tyremall Hero"
         className="absolute inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260227_042027_c4b2f2ea-1c7c-4d6e-9e3d-81a78063703f.mp4" type="video/mp4" />
-      </video>
+        fetchpriority="high"
+        decoding="async"
+      />
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/75 z-[1] mix-blend-multiply"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(253,224,71,0.18),transparent_62%)] opacity-80 z-[2] pointer-events-none"></div>
@@ -1736,60 +1781,176 @@ const ReviewsSection = () => {
     { name: 'Anita Thakur', rating: 5, text: 'The 3D alignment machine is top-of-the-line, no tyre damage at all. Best Apollo tyre prices in Dehradun. Staff is incredibly knowledgeable.', vehicle: 'Renault Duster', date: '2 months ago' },
     { name: 'Vikram Chauhan', rating: 5, text: 'Got Goodyear tyres for my SUV. 100% genuine products, best price guaranteed. Nitrogen filling service was a great bonus. Highly satisfied!', vehicle: 'Mahindra XUV500', date: '1 week ago' },
   ];
-  const all = [...reviews, ...reviews];
+
+  // Triple the list so there's always overflow content visible
+  const all = [...reviews, ...reviews, ...reviews];
+
+  const CARD_W = 340;
+  const GAP = 24;
+  const LOOP_AT = reviews.length * (CARD_W + GAP); // seamless loop point
+
+  const [highlightIdx, setHighlightIdx] = useState(0);
   const [ref, isVisible] = useInView();
+
+  const trackRef = useRef(null);
+  const rafRef = useRef(null);
+  const xRef = useRef(0);
+  const pausedRef = useRef(false);
+  const dragRef = useRef({ active: false, startX: 0, startScroll: 0 });
+
+  // rAF scroll loop — completely independent of React re-renders
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const tick = () => {
+      if (!pausedRef.current && !dragRef.current.active) {
+        xRef.current += 0.7;
+        if (xRef.current >= LOOP_AT) xRef.current -= LOOP_AT;
+      }
+      track.style.transform = `translateX(-${xRef.current}px)`;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [LOOP_AT]);
+
+  // Highlight cycle — completely independent of scroll
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHighlightIdx(prev => (prev + 1) % reviews.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Mouse drag handlers
+  const onMouseEnter = () => { pausedRef.current = true; };
+  const onMouseLeave = () => { pausedRef.current = false; dragRef.current.active = false; };
+  const onMouseDown = (e) => {
+    dragRef.current = { active: true, startX: e.clientX, startScroll: xRef.current };
+    e.preventDefault();
+  };
+  const onMouseMove = (e) => {
+    if (!dragRef.current.active) return;
+    let nx = dragRef.current.startScroll + (dragRef.current.startX - e.clientX);
+    if (nx < 0) nx = 0;
+    if (nx >= LOOP_AT) nx = LOOP_AT - 1;
+    xRef.current = nx;
+  };
+  const onMouseUp = () => { dragRef.current.active = false; };
+
+  // Touch drag handlers
+  const onTouchStart = (e) => {
+    pausedRef.current = true;
+    dragRef.current = { active: true, startX: e.touches[0].clientX, startScroll: xRef.current };
+  };
+  const onTouchMove = (e) => {
+    if (!dragRef.current.active) return;
+    let nx = dragRef.current.startScroll + (dragRef.current.startX - e.touches[0].clientX);
+    if (nx < 0) nx = 0;
+    if (nx >= LOOP_AT) nx = LOOP_AT - 1;
+    xRef.current = nx;
+  };
+  const onTouchEnd = () => { dragRef.current.active = false; pausedRef.current = false; };
 
   return (
     <div id="reviews" className="py-24 bg-slate-50 border-y border-slate-100 overflow-hidden">
+
+      {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
         <SectionTitle subtitle="Customer Reviews" title="Trusted by Dehradun" />
         <div ref={ref} className={`flex items-center justify-center gap-3 -mt-8 animate-on-scroll ${isVisible ? 'is-visible' : ''}`}>
-          <div className="flex gap-1 text-brand-red drop-shadow-md">
+          <div className="flex gap-1 text-amber-400 drop-shadow-sm">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
           </div>
-          <span className="text-slate-700 font-bold text-sm md:text-base bg-white px-4 py-1.5 rounded-full shadow-sm border border-slate-200">4.8 / 5 on Google &nbsp;·&nbsp; 500+ Happy Customers</span>
+          <span className="text-slate-700 font-bold text-sm md:text-base bg-white px-4 py-1.5 rounded-full shadow-sm border border-slate-200">
+            4.8 / 5 on Google &nbsp;·&nbsp; 500+ Happy Customers
+          </span>
         </div>
       </div>
 
-      <div className="relative pb-10">
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right,#f8fafc,transparent)' }}></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left,#f8fafc,transparent)' }}></div>
-        <div className="flex overflow-hidden">
-          <div className="marquee-track flex gap-8 pr-8" style={{ width: 'max-content' }}>
-            {all.map((r, idx) => (
-              <div key={idx} className="pc-review flex-shrink-0" style={{ width: '340px' }}>
-                <div className="flex gap-1 text-brand-red mb-4">
+      {/* Scrolling track */}
+      <div
+        className="relative pb-6 overflow-hidden select-none"
+        style={{ cursor: 'grab' }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #f8fafc, transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, #f8fafc, transparent)' }} />
+
+        {/* Track — moved by rAF, never re-created by React */}
+        <div
+          ref={trackRef}
+          className="flex"
+          style={{ width: 'max-content', gap: `${GAP}px`, willChange: 'transform' }}
+        >
+          {all.map((r, idx) => {
+            const lit = (idx % reviews.length) === highlightIdx;
+            return (
+              <div
+                key={idx}
+                className="pc-review flex-shrink-0"
+                style={{
+                  width: `${CARD_W}px`,
+                  transition: 'border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease',
+                  borderColor: lit ? 'rgba(238,63,44,0.5)' : 'rgba(226,232,240,0.8)',
+                  boxShadow: lit
+                    ? '0 16px 48px rgba(238,63,44,0.16), 0 4px 12px rgba(15,23,42,0.06), inset 0 1px 0 #fff'
+                    : '0 4px 6px -1px rgba(15,23,42,0.03), 0 12px 32px -4px rgba(15,23,42,0.06), inset 0 1px 0 #fff',
+                  background: lit ? 'linear-gradient(145deg,#fff 0%,#fff6f5 100%)' : 'linear-gradient(145deg,#fff 0%,#fafbfc 100%)',
+                }}
+              >
+                {/* Red top accent bar */}
+                <div style={{
+                  position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
+                  borderRadius: '20px 20px 0 0',
+                  background: lit ? 'linear-gradient(90deg,transparent,var(--color-brand-red),transparent)' : 'transparent',
+                  transition: 'background 0.5s ease',
+                }} />
+
+                <div className="flex gap-1 text-amber-400 mb-4">
                   {[...Array(r.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                 </div>
-                <p className="text-slate-700 text-[15px] leading-relaxed mb-6 font-medium relative z-10">{r.text}</p>
+                <p className="text-[15px] leading-relaxed mb-6 font-medium relative z-10"
+                  style={{ color: lit ? '#1e293b' : '#64748b', transition: 'color 0.5s ease' }}>
+                  {r.text}
+                </p>
                 <div className="flex items-center justify-between pt-5 border-t border-slate-100 relative z-10">
                   <div className="flex items-center gap-4">
-                    <div className="avatar w-11 h-11 rounded-full bg-gradient-to-br from-brand-red to-red-700 flex items-center justify-center text-white text-sm font-black flex-shrink-0 relative">
+                    <div
+                      className="avatar w-11 h-11 rounded-full bg-gradient-to-br from-brand-red to-red-700 flex items-center justify-center text-white text-sm font-black flex-shrink-0"
+                      style={{
+                        boxShadow: lit ? '0 0 0 3px rgba(238,63,44,0.25),0 4px 12px rgba(238,63,44,0.3)' : 'none',
+                        transition: 'box-shadow 0.5s ease',
+                      }}
+                    >
                       {r.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="text-slate-900 font-black text-sm leading-tight">{r.name}</p>
+                      <p className="font-black text-sm leading-tight"
+                        style={{ color: lit ? '#0f172a' : '#475569', transition: 'color 0.5s ease' }}>
+                        {r.name}
+                      </p>
                       <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-0.5">{r.vehicle}</p>
                     </div>
                   </div>
-                  <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider flex-shrink-0 bg-slate-100 px-2 py-1 rounded-md">{r.date}</span>
+                  <span className="text-slate-400 text-[10px] font-bold uppercase tracking-wider bg-slate-100 px-2 py-1 rounded-md">{r.date}</span>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto mt-16 px-4 sm:px-6">
-        <div className="pc p-8 md:p-10">
-          <div className="text-center mb-8">
-            <div className="text-brand-red text-[11px] font-bold tracking-[0.35em] uppercase mb-2">Share Your Experience</div>
-            <h3 className="text-2xl font-black text-slate-900 uppercase tracking-tight">Leave a Review</h3>
-            <p className="text-slate-500 text-sm mt-2 font-medium">Your feedback helps us serve Dehradun better.</p>
-          </div>
-          <ReviewForm />
-        </div>
-      </div>
     </div>
   );
 };
@@ -1963,6 +2124,25 @@ const ContactSection = () => {
 
 
 
+const FloatingImageSection = () => {
+  const [ref, isVisible] = useInView();
+  return (
+    <div className="py-20 bg-white flex items-center justify-center overflow-hidden">
+      <div
+        ref={ref}
+        className={`animate-on-scroll ${isVisible ? 'is-visible' : ''} flex justify-center`}
+      >
+        <img
+          src="https://file.garden/aaq7u9giWjY0-o-W/Tyre%20Mall/Tyremall_main.png"
+          alt="Tyremall"
+          className="float-gentle max-w-full h-auto"
+          style={{ maxHeight: '520px' }}
+        />
+      </div>
+    </div>
+  );
+};
+
 // --- Floating Call Now Banner (Static Left) ---
 const StaticCallBanner = () => (
   <a
@@ -2044,13 +2224,14 @@ export default function App() {
       <div className="bg-slate-50 min-h-screen font-sans selection:bg-brand-red selection:text-white">
         <main>
           <Hero />
+          <ReviewsSection />
+          <FloatingImageSection />
           <IntroDestination />
           <ExpertServices />
           <BrandsShowcase onOpenModal={() => setShowBrandsModal(true)} />
           <TyreRange />
           <GallerySlideshow />
           <WhyUs />
-          <ReviewsSection />
           <ContactSection />
         </main>
         <StaticCallBanner />
